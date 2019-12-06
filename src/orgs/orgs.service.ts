@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Org } from './interfaces/org.interface';
+import { Org } from './orgs.entity';
 
 @Injectable()
 export class OrgsService {

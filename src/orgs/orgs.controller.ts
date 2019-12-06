@@ -1,8 +1,7 @@
 import { Controller, Get, Req, Post, Body } from '@nestjs/common';
 import { Request } from 'express';
-import { Org } from './interfaces/org.interface';
+import { Org } from './orgs.entity';
 import { OrgsService } from './orgs.service';
-import { CreateOrgDto } from './dto/create-org.dto';
 
 @Controller('orgs')
 export class OrgsController {
@@ -14,7 +13,7 @@ export class OrgsController {
   }
 
   @Post()
-  async create(@Body() createOrgDto: CreateOrgDto) {
-    this.orgsService.create(createOrgDto);
+  async create(@Body() org: Org) {
+    this.orgsService.create(org);
   }
 }
