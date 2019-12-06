@@ -1,7 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { OrgsService } from './orgs.service';
-import { getRepositoryToken } from '@nestjs/typeorm';
-import { Org } from './orgs.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import * as ormconfig from '../ormconfig';
 import { OrgsModule } from './orgs.module';
