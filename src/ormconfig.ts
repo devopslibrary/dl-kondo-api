@@ -1,7 +1,5 @@
 import { ConnectionOptions } from 'typeorm';
 import * as dotenv from 'dotenv';
-// You can load you .env file here synchronously using dotenv package (not installed here),
-//
 import * as fs from 'fs';
 import { ConfigService } from './config/config.service';
 const environment = process.env.NODE_ENV || 'development';
@@ -29,7 +27,7 @@ const config: ConnectionOptions = {
   // you can disable this if you prefer running migration manually.
   migrationsRun: true,
   logging: true,
-  logger: 'file',
+  logger: 'advanced-console',
 
   // Allow both start:prod and start:dev to use migrations
   // __dirname is either dist or src folder, meaning either
