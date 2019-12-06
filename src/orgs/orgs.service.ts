@@ -13,7 +13,7 @@ export class OrgsService {
   ) {}
 
   @Mutation(returns => Org)
-  async createOrg(@Args('org') org: Org) {
+  async upsertOrg(@Args('org') org: Org) {
     return await this.orgRepository.save(org);
   }
 

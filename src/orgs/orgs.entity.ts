@@ -10,13 +10,13 @@ import {
 import { Repo } from '../repos/repos.entity';
 import { Setting } from '../settings/settings.entity';
 import { User } from '../users/users.entity';
-import { Field, ID, ObjectType, InputType } from 'type-graphql';
+import { Field, ID, ObjectType, InputType, Int } from 'type-graphql';
 
 @ObjectType()
 @InputType('OrgInput')
 @Entity()
 export class Org {
-  @Field(type => ID)
+  @Field(type => Int)
   @PrimaryColumn()
   id: number;
 
