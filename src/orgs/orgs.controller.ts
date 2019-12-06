@@ -14,6 +14,6 @@ export class OrgsController {
 
   @Post()
   async create(@Body() org: Org) {
-    this.orgsService.create(org);
+    this.orgsService.createOrg(org);
   }
 }

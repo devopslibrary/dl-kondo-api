@@ -1,6 +1,6 @@
 import {
   Entity,
-  PrimaryGeneratedColumn,
+  PrimaryColumn,
   Column,
   OneToMany,
   OneToOne,
@@ -10,18 +10,25 @@ import {
 import { Repo } from '../repos/repos.entity';
 import { Setting } from '../settings/settings.entity';
 import { User } from '../users/users.entity';
+import { Field, ID, ObjectType, InputType } from 'type-graphql';
 
+@ObjectType()
+@InputType('OrgInput')
 @Entity()
 export class Org {
-  @PrimaryGeneratedColumn()
+  @Field(type => ID)
+  @PrimaryColumn()
   id: number;
 
+  @Field()
   @Column({ length: 50 })
   name: string;
 
+  @Field()
   @Column()
   installationId: number;
 
+  @Field()
   @Column()
   lastSynced: Date;
 

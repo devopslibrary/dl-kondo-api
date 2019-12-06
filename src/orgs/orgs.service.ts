@@ -1,15 +1,24 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
 import { Org } from './orgs.entity';
+import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Repository } from 'typeorm';
 
+@Resolver('Orgs')
 @Injectable()
 export class OrgsService {
-  private readonly orgs: Org[] = [];
+  constructor(
+    @InjectRepository(Org)
+    private readonly orgRepository: Repository<Org>,
+  ) {}
 
-  create(org: Org) {
-    this.orgs.push(org);
+  @Mutation(returns => Org)
+  async createOrg(@Args('org') org: Org) {
+    return await this.orgRepository.save(org);
   }
 
-  findAll(): Org[] {
-    return this.orgs;
+  @Query(returns => Org)
+  async findAll(): Promise<Org[]> {
+    return await this.orgRepository.find();
   }
 }
