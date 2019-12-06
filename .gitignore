@@ -1,5 +1,6 @@
 # Env Files
 *.env
+!test.env
 
 # compiled output
 /dist

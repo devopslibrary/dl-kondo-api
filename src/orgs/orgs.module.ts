@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
-import { OrgController } from '../../../dl-web-api/src/controller/org';
+import { OrgsController } from './orgs.controller';
 import { OrgsService } from './orgs.service';
 
 @Module({
-  controllers: [OrgController],
+  controllers: [OrgsController],
   providers: [OrgsService],
   exports: [OrgsModule],
 })
