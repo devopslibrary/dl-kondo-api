@@ -6,6 +6,7 @@ import { ConfigModule } from './config/config.module';
 import { Connection } from 'typeorm';
 import * as ormconfig from './ormconfig';
 import { SettingsModule } from './settings/settings.module';
+import { GraphqlPassportAuthGuard } from './auth/auth.module';
 
 export function DatabaseOrmModule(): DynamicModule {
   return TypeOrmModule.forRoot(ormconfig);
@@ -17,7 +18,11 @@ export function DatabaseOrmModule(): DynamicModule {
     OrgsModule,
     ConfigModule,
     SettingsModule,
-    GraphQLModule.forRoot({ autoSchemaFile: 'schema.gql' }),
+    GraphQLModule.forRoot({
+      autoSchemaFile: 'schema.gql',
+      context: ({ req }) => ({ req }),
+    }),
+    GraphqlPassportAuthGuard,
   ],
 })
 export class AppModule {
