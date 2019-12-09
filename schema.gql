@@ -10,6 +10,7 @@ scalar DateTime
 
 type Mutation {
   upsertOrg(org: OrgInput!): Org!
+  upsertSetting(setting: SettingInput!): Setting!
 }
 
 type Org {
@@ -17,6 +18,8 @@ type Org {
   name: String!
   installationId: Float!
   lastSynced: DateTime!
+  repos: [Repo!]
+  setting: Setting
 }
 
 input OrgInput {
@@ -24,8 +27,39 @@ input OrgInput {
   name: String!
   installationId: Float!
   lastSynced: DateTime!
+  repos: [RepoInput!]
+  setting: SettingInput
 }
 
 type Query {
-  findAll: Org!
+  findAllOrgs: [Org!]!
+  findAllSettings: Setting!
+}
+
+type Repo {
+  id: Int!
+  name: String!
+  fullName: String!
+  lastSynced: DateTime!
+  defaultBranch: String!
+}
+
+input RepoInput {
+  id: Int!
+  name: String!
+  fullName: String!
+  lastSynced: DateTime!
+  defaultBranch: String!
+}
+
+type Setting {
+  id: Int!
+  nukeStaleBranches: Boolean!
+  nukeStalePRs: Boolean!
+}
+
+input SettingInput {
+  id: Int!
+  nukeStaleBranches: Boolean!
+  nukeStalePRs: Boolean!
 }

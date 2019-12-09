@@ -36,3 +36,19 @@ Query Variables
   }
 }
 ```
+
+Example retrieval
+
+```graphql
+query getAllOrgs {
+  findAllOrgs {
+    id
+    name
+    setting {
+      id
+      nukeStaleBranches
+      nukeStalePRs
+    }
+  }
+}
+```

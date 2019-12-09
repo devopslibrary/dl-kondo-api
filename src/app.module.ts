@@ -5,6 +5,7 @@ import { OrgsModule } from './orgs/orgs.module';
 import { ConfigModule } from './config/config.module';
 import { Connection } from 'typeorm';
 import * as ormconfig from './ormconfig';
+import { SettingsModule } from './settings/settings.module';
 
 export function DatabaseOrmModule(): DynamicModule {
   return TypeOrmModule.forRoot(ormconfig);
@@ -15,6 +16,7 @@ export function DatabaseOrmModule(): DynamicModule {
     TypeOrmModule.forRoot(ormconfig),
     OrgsModule,
     ConfigModule,
+    SettingsModule,
     GraphQLModule.forRoot({ autoSchemaFile: 'schema.gql' }),
   ],
 })

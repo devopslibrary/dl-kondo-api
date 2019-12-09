@@ -8,12 +8,12 @@ export class OrgsController {
   constructor(private readonly orgsService: OrgsService) {}
 
   @Get()
-  async findAll(@Req() request: Request): Promise<Org[]> {
-    return this.orgsService.findAll();
+  async findAllOrgs(@Req() request: Request): Promise<Org[]> {
+    return this.orgsService.findAllOrgs();
   }
 
   @Post()
-  async create(@Body() org: Org) {
+  async createOrg(@Body() org: Org) {
     this.orgsService.upsertOrg(org);
   }
 }
