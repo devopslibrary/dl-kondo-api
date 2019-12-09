@@ -3,7 +3,7 @@ import { Org } from './orgs.entity';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { AuthGuard } from '@nestjs/passport';
 import { UseGuards, Request } from '@nestjs/common';
-import { AuthService } from '../auth/auth.module';
+import { AuthService } from '../auth/auth.service';
 
 @Resolver('Org')
 export class OrgResolver {
