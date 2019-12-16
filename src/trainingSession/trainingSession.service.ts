@@ -69,7 +69,7 @@ export class TrainingSesssionService {
   async updateTrainingSession(
     trainingSession: TrainingSession,
   ): Promise<TrainingSession> {
-    const _trainingSession = await this.requestFormRepository.findOne({
+    const _trainingSession = await this.trainingSessionRepository.findOne({
       id: trainingSession.id,
     });
     if (!_trainingSession) {

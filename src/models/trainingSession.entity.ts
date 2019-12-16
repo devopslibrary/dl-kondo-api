@@ -6,13 +6,14 @@ import { RequestForm } from './requestForm.entity';
 @InputType('TrainingSessionInput')
 @Entity()
 export class TrainingSession {
-  @Field(type => ID)
+  @Field(type => Number)
   @PrimaryGeneratedColumn()
   id?: number;
 
   @ManyToOne(
     type => RequestForm,
     requestForm => requestForm.trainingSessions,
+    { onDelete: 'CASCADE' },
   )
   requestForm: RequestForm;
 

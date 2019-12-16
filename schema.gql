@@ -9,14 +9,14 @@ The javascript `Date` as string. Type represents date and time as the ISO Date s
 scalar DateTime
 
 type FacilityLogistics {
-  id: ID!
+  id: Float!
   facilitySecured: Boolean!
   preferredFacilityType: String!
   facilityRequests: String!
 }
 
 input FacilityLogisticsInput {
-  id: ID!
+  id: Float!
   facilitySecured: Boolean!
   preferredFacilityType: String!
   facilityRequests: String!
@@ -24,13 +24,15 @@ input FacilityLogisticsInput {
 
 type Mutation {
   createForm(formName: String!): RequestForm!
+  updateForm(requestForm: RequestFormInput!): RequestForm!
+  deleteForm(formId: Float!): RequestForm!
   createTrainingSession(formId: Float!): TrainingSession!
   updateTrainingSession(trainingSession: TrainingSessionInput!): TrainingSession!
   deleteTrainingSession(trainingSessionId: Float!): TrainingSession!
 }
 
 type ProgramInformation {
-  id: ID!
+  id: Float!
   eventName: String!
   dates: String!
   staffLead: String!
@@ -58,7 +60,7 @@ type ProgramInformation {
 }
 
 input ProgramInformationInput {
-  id: ID!
+  id: Float!
   eventName: String!
   dates: String!
   staffLead: String!
@@ -87,49 +89,50 @@ input ProgramInformationInput {
 
 type Query {
   findAllForms: [RequestForm!]!
+  getForm(formId: Float!): RequestForm!
   findAllTrainingSessionsForRequestForm(formId: Float!): [TrainingSession!]!
 }
 
 type RegistrationLogistics {
-  id: ID!
+  id: Float!
   registrationRequired: Boolean!
   invitationsRequired: Boolean!
   badgesRequired: Boolean!
 }
 
 input RegistrationLogisticsInput {
-  id: ID!
+  id: Float!
   registrationRequired: Boolean!
   invitationsRequired: Boolean!
   badgesRequired: Boolean!
 }
 
 type RequestForm {
-  id: ID!
+  id: Float!
   name: String!
-  status: SubmissionStatus
-  program: ProgramInformation
-  strategy: StrategyAlignment
-  facilityLogistics: FacilityLogistics
-  registrationLogistics: RegistrationLogistics
-  siteRequirements: SiteRequirements
-  trainingSessions: [TrainingSession!]
+  status: SubmissionStatus!
+  program: ProgramInformation!
+  strategy: StrategyAlignment!
+  facilityLogistics: FacilityLogistics!
+  registrationLogistics: RegistrationLogistics!
+  siteRequirements: SiteRequirements!
+  trainingSessions: [TrainingSession!]!
 }
 
 input RequestFormInput {
-  id: ID!
+  id: Float!
   name: String!
-  status: SubmissionStatusInput
-  program: ProgramInformationInput
-  strategy: StrategyAlignmentInput
-  facilityLogistics: FacilityLogisticsInput
-  registrationLogistics: RegistrationLogisticsInput
-  siteRequirements: SiteRequirementsInput
-  trainingSessions: [TrainingSessionInput!]
+  status: SubmissionStatusInput!
+  program: ProgramInformationInput!
+  strategy: StrategyAlignmentInput!
+  facilityLogistics: FacilityLogisticsInput!
+  registrationLogistics: RegistrationLogisticsInput!
+  siteRequirements: SiteRequirementsInput!
+  trainingSessions: [TrainingSessionInput!]!
 }
 
 type SiteRequirements {
-  id: ID!
+  id: Float!
   breakfast: Boolean!
   lunch: Boolean!
   dinner: Boolean!
@@ -147,7 +150,7 @@ type SiteRequirements {
 }
 
 input SiteRequirementsInput {
-  id: ID!
+  id: Float!
   breakfast: Boolean!
   lunch: Boolean!
   dinner: Boolean!
@@ -165,7 +168,7 @@ input SiteRequirementsInput {
 }
 
 type StrategyAlignment {
-  id: ID!
+  id: Float!
   mwbEducation: Boolean!
   mwbStandards: Boolean!
   mwbGlobalAccessibility: Boolean!
@@ -177,7 +180,7 @@ type StrategyAlignment {
 }
 
 input StrategyAlignmentInput {
-  id: ID!
+  id: Float!
   mwbEducation: Boolean!
   mwbStandards: Boolean!
   mwbGlobalAccessibility: Boolean!
@@ -189,7 +192,7 @@ input StrategyAlignmentInput {
 }
 
 type SubmissionStatus {
-  id: ID!
+  id: Float!
   submittedToProgramManager: Boolean!
   submittedToProgramManagerInitials: String!
   submittedToProgramManagerDate: DateTime!
@@ -206,7 +209,7 @@ type SubmissionStatus {
 }
 
 input SubmissionStatusInput {
-  id: ID!
+  id: Float!
   submittedToProgramManager: Boolean!
   submittedToProgramManagerInitials: String!
   submittedToProgramManagerDate: DateTime!
@@ -223,7 +226,7 @@ input SubmissionStatusInput {
 }
 
 type TrainingSession {
-  id: ID!
+  id: Float!
   courseTitle: String!
   courseDescription: String!
   learningObjectives: String!
@@ -248,7 +251,7 @@ type TrainingSession {
 }
 
 input TrainingSessionInput {
-  id: ID!
+  id: Float!
   courseTitle: String!
   courseDescription: String!
   learningObjectives: String!

@@ -13,7 +13,7 @@ import { TrainingSession } from './trainingSession.entity';
 @InputType('RequestFormInput')
 @Entity()
 export class RequestForm {
-  @Field(type => ID)
+  @Field(type => Number)
   @PrimaryGeneratedColumn()
   id?: number;
 
@@ -21,37 +21,38 @@ export class RequestForm {
   @Column({ length: 50 })
   name: string;
 
-  @Field(type => SubmissionStatus, { nullable: true })
+  @Field(type => SubmissionStatus)
   @OneToOne(type => SubmissionStatus, { cascade: ['insert', 'update'] })
   @JoinColumn()
   status: SubmissionStatus;
 
-  @Field(type => ProgramInformation, { nullable: true })
+  @Field(type => ProgramInformation)
   @OneToOne(type => ProgramInformation, { cascade: ['insert', 'update'] })
   @JoinColumn()
   program: ProgramInformation;
 
-  @Field(type => StrategyAlignment, { nullable: true })
+  @Field(type => StrategyAlignment)
   @OneToOne(type => StrategyAlignment, { cascade: ['insert', 'update'] })
   @JoinColumn()
   strategy: StrategyAlignment;
 
-  @Field(type => FacilityLogistics, { nullable: true })
+  @Field(type => FacilityLogistics)
   @OneToOne(type => FacilityLogistics, { cascade: ['insert', 'update'] })
   @JoinColumn()
   facilityLogistics: FacilityLogistics;
 
-  @Field(type => RegistrationLogistics, { nullable: true })
+  @Field(type => RegistrationLogistics)
   @OneToOne(type => RegistrationLogistics, { cascade: ['insert', 'update'] })
   @JoinColumn()
   registrationLogistics: RegistrationLogistics;
 
-  @Field(type => SiteRequirements, { nullable: true })
+  @Field(type => SiteRequirements)
   @OneToOne(type => SiteRequirements, { cascade: ['insert', 'update'] })
   @JoinColumn()
   siteRequirements: SiteRequirements;
 
-  @Field(type => TrainingSession, { nullable: true })
+  @Field(type => TrainingSession)
+  @JoinColumn()
   @OneToMany(
     type => TrainingSession,
     trainingSession => trainingSession.requestForm,

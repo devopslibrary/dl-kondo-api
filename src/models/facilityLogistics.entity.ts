@@ -5,7 +5,7 @@ import { Field, ObjectType, InputType, ID } from 'type-graphql';
 @InputType('FacilityLogisticsInput')
 @Entity()
 export class FacilityLogistics {
-  @Field(type => ID)
+  @Field(type => Number)
   @PrimaryGeneratedColumn()
   id?: number;
 

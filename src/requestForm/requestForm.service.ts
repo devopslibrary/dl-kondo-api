@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, HttpException, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { RequestForm } from '../models/requestForm.entity';
 import { Repository } from 'typeorm';
@@ -224,29 +224,76 @@ export class RequestFormService {
   }
 
   async findAllForms(): Promise<RequestForm[]> {
-    const _requestForms = await this.requestFormRepository.find();
-    let reqformArray: RequestForm[] = [];
-    for (let reqform of _requestForms) {
-      reqform.facilityLogistics = await this.facilityLogisticsRepository.findOne(
-        { id: reqform.id },
+    return await this.requestFormRepository.find({
+      relations: [
+        'facilityLogistics',
+        'program',
+        'registrationLogistics',
+        'siteRequirements',
+        'strategy',
+        'status',
+        'trainingSessions',
+      ],
+    });
+  }
+
+  async getForm(formId: number): Promise<RequestForm> {
+    const _requestForm = await this.requestFormRepository.findOne({
+      id: formId,
+    });
+    if (!_requestForm) {
+      throw new HttpException(
+        {
+          status: NotFoundException,
+          error: 'RequestForm with ID ' + formId + ' does not exist!',
+        },
+        403,
       );
-      reqform.program = await this.programInformationRepository.findOne({
-        id: reqform.id,
-      });
-      reqform.registrationLogistics = await this.registrationLogisticsRepository.findOne(
-        { id: reqform.id },
-      );
-      reqform.siteRequirements = await this.siteRequirementsRepository.findOne({
-        id: reqform.id,
-      });
-      reqform.strategy = await this.strategyAlignmentRepository.findOne({
-        id: reqform.id,
-      });
-      reqform.status = await this.submissionStatusRepository.findOne({
-        id: reqform.id,
-      });
-      reqformArray.push(reqform);
     }
-    return reqformArray;
+    return await this.requestFormRepository.findOne({
+      relations: [
+        'facilityLogistics',
+        'program',
+        'registrationLogistics',
+        'siteRequirements',
+        'strategy',
+        'status',
+        'trainingSessions',
+      ],
+      where: { id: formId },
+    });
+  }
+
+  async updateForm(requestForm: RequestForm): Promise<RequestForm> {
+    const _requestForm = await this.requestFormRepository.findOne({
+      id: requestForm.id,
+    });
+    if (!_requestForm) {
+      throw new HttpException(
+        {
+          status: NotFoundException,
+          error: 'RequestForm with ID ' + requestForm.id + ' does not exist!',
+        },
+        403,
+      );
+    }
+    return await this.requestFormRepository.save(requestForm);
+  }
+
+  async deleteForm(requestFormId: number) {
+    const _requestForm = await this.requestFormRepository.findOne({
+      id: requestFormId,
+    });
+    if (!_requestForm) {
+      throw new HttpException(
+        {
+          status: NotFoundException,
+          error: 'RequestForm with ID ' + requestFormId + ' does not exist!',
+        },
+        403,
+      );
+    }
+    await this.requestFormRepository.delete(requestFormId);
+    return _requestForm;
   }
 }
