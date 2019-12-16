@@ -24,6 +24,9 @@ input FacilityLogisticsInput {
 
 type Mutation {
   createForm(formName: String!): RequestForm!
+  createTrainingSession(formId: Float!): TrainingSession!
+  updateTrainingSession(trainingSession: TrainingSessionInput!): TrainingSession!
+  deleteTrainingSession(trainingSessionId: Float!): TrainingSession!
 }
 
 type ProgramInformation {
@@ -83,7 +86,8 @@ input ProgramInformationInput {
 }
 
 type Query {
-  findAllOrgs: [RequestForm!]!
+  findAllForms: [RequestForm!]!
+  findAllTrainingSessionsForRequestForm(formId: Float!): [TrainingSession!]!
 }
 
 type RegistrationLogistics {

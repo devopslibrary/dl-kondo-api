@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { RequestFormService } from './request.service';
+import { RequestFormService } from './requestForm.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { RequestForm } from '../models/requestForm.entity';
 import { RequestFormResolver } from './requestForm.resolver';

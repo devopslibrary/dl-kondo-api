@@ -1,21 +1,21 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { OrgsService } from './request.service';
+import { RequestFormService } from './requestForm.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import * as ormconfig from '../ormconfig';
-import { OrgsModule } from './requestForm.module';
+import { RequestFormModule } from './requestForm.module';
 
 describe('OrgsService', () => {
-  let service: OrgsService;
+  let service: RequestFormService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [OrgsModule, TypeOrmModule.forRoot(ormconfig)],
+      imports: [RequestFormModule, TypeOrmModule.forRoot(ormconfig)],
     }).compile();
 
-    service = module.get<OrgsService>(OrgsService);
+    service = module.get<RequestFormService>(RequestFormService);
   });
 
   it('should be defined', async () => {
-    await expect(service.findAll()).toBeDefined();
+    await expect(service.findAllForms).toBeDefined();
   });
 });
