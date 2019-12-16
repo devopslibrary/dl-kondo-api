@@ -9,6 +9,9 @@ yarn
 yarn runstart:dev
 ```
 
+## Create Migrations
+yarn run typeorm:migrate initial-structures
+
 ## Example GraphQL queries
 
 Create Org Mutation

@@ -8,58 +8,262 @@ The javascript `Date` as string. Type represents date and time as the ISO Date s
 """
 scalar DateTime
 
+type FacilityLogistics {
+  id: Int!
+  facilitySecured: Boolean!
+  preferredFacilityType: String!
+  facilityRequests: String!
+}
+
+input FacilityLogisticsInput {
+  id: Int!
+  facilitySecured: Boolean!
+  preferredFacilityType: String!
+  facilityRequests: String!
+}
+
 type Mutation {
-  upsertOrg(org: OrgInput!): Org!
-  upsertSetting(setting: SettingInput!): Setting!
+  upsertForm(requestForm: RequestFormInput!): RequestForm!
 }
 
-type Org {
+type ProgramInformation {
   id: Int!
-  name: String!
-  installationId: Float!
-  lastSynced: DateTime!
-  repos: [Repo!]
-  setting: Setting
+  eventName: String!
+  dates: String!
+  staffLead: String!
+  department: String!
+  location: String!
+  country: String!
+  typeWorkforce: Boolean!
+  typeEducation: Boolean!
+  typeMeeting: Boolean!
+  typeSummit: Boolean!
+  typeTradeshow: Boolean!
+  typeEvent: Boolean!
+  typeReception: Boolean!
+  typeOtherEvent: Boolean!
+  whoShouldAttend: String!
+  accountCode: String!
+  budget: Float!
+  city: String!
+  state: String!
+  estimatedAttendance: Float!
+  eventTime: String!
+  setupByDate: DateTime!
+  setupByTime: String!
+  summary: String!
 }
 
-input OrgInput {
+input ProgramInformationInput {
   id: Int!
-  name: String!
-  installationId: Float!
-  lastSynced: DateTime!
-  repos: [RepoInput!]
-  setting: SettingInput
+  eventName: String!
+  dates: String!
+  staffLead: String!
+  department: String!
+  location: String!
+  country: String!
+  typeWorkforce: Boolean!
+  typeEducation: Boolean!
+  typeMeeting: Boolean!
+  typeSummit: Boolean!
+  typeTradeshow: Boolean!
+  typeEvent: Boolean!
+  typeReception: Boolean!
+  typeOtherEvent: Boolean!
+  whoShouldAttend: String!
+  accountCode: String!
+  budget: Float!
+  city: String!
+  state: String!
+  estimatedAttendance: Float!
+  eventTime: String!
+  setupByDate: DateTime!
+  setupByTime: String!
+  summary: String!
 }
 
 type Query {
-  findAllOrgs: [Org!]!
-  findAllSettings: Setting!
+  findAllOrgs: [RequestForm!]!
 }
 
-type Repo {
+type RegistrationLogistics {
   id: Int!
+  registrationRequired: Boolean!
+  invitationsRequired: Boolean!
+  badgesRequired: Boolean!
+}
+
+input RegistrationLogisticsInput {
+  id: Int!
+  registrationRequired: Boolean!
+  invitationsRequired: Boolean!
+  badgesRequired: Boolean!
+}
+
+type RequestForm {
+  id: Int
   name: String!
-  fullName: String!
-  lastSynced: DateTime!
-  defaultBranch: String!
+  status: SubmissionStatus
+  program: ProgramInformation
+  strategy: StrategyAlignment
+  facilityLogistics: FacilityLogistics
+  registrationLogistics: RegistrationLogistics
+  siteRequirements: SiteRequirements
 }
 
-input RepoInput {
-  id: Int!
+input RequestFormInput {
+  id: Int
   name: String!
-  fullName: String!
-  lastSynced: DateTime!
-  defaultBranch: String!
+  status: SubmissionStatusInput
+  program: ProgramInformationInput
+  strategy: StrategyAlignmentInput
+  facilityLogistics: FacilityLogisticsInput
+  registrationLogistics: RegistrationLogisticsInput
+  siteRequirements: SiteRequirementsInput
 }
 
-type Setting {
+type SiteRequirements {
   id: Int!
-  nukeStaleBranches: Boolean!
-  nukeStalePRs: Boolean!
+  breakfast: Boolean!
+  lunch: Boolean!
+  dinner: Boolean!
+  snacks: Boolean!
+  openbar: Boolean!
+  cashbar: Boolean!
+  supportStaff: Boolean!
+  dining: Boolean!
+  av: Boolean!
+  tableTents: Boolean!
+  signage: Boolean!
+  amenities: String!
+  additionalRequests: String!
+  updatedAt: DateTime!
 }
 
-input SettingInput {
+input SiteRequirementsInput {
   id: Int!
-  nukeStaleBranches: Boolean!
-  nukeStalePRs: Boolean!
+  breakfast: Boolean!
+  lunch: Boolean!
+  dinner: Boolean!
+  snacks: Boolean!
+  openbar: Boolean!
+  cashbar: Boolean!
+  supportStaff: Boolean!
+  dining: Boolean!
+  av: Boolean!
+  tableTents: Boolean!
+  signage: Boolean!
+  amenities: String!
+  additionalRequests: String!
+  updatedAt: DateTime!
+}
+
+type StrategyAlignment {
+  id: Int!
+  mwbEducation: Boolean!
+  mwbStandards: Boolean!
+  mwbGlobalAccessibility: Boolean!
+  mwbEngagement: Boolean!
+  mwbValueProposition: Boolean!
+  mwbWorkforceDevelopment: Boolean!
+  objectives: String!
+  goalPeopleReached: Float!
+}
+
+input StrategyAlignmentInput {
+  id: Int!
+  mwbEducation: Boolean!
+  mwbStandards: Boolean!
+  mwbGlobalAccessibility: Boolean!
+  mwbEngagement: Boolean!
+  mwbValueProposition: Boolean!
+  mwbWorkforceDevelopment: Boolean!
+  objectives: String!
+  goalPeopleReached: Float!
+}
+
+type SubmissionStatus {
+  id: Int!
+  submittedToProgramManager: Boolean!
+  submittedToProgramManagerInitials: String!
+  submittedToProgramManagerDate: DateTime!
+  submittedToMeetingsEvents: Boolean!
+  submittedToMeetingsEventsInitials: String!
+  submittedToMeetingsEventsDate: DateTime!
+  submittedTrainingInformation: Boolean!
+  submittedTrainingInformationInitials: String!
+  submittedTrainingInformationDate: DateTime!
+  submittedToMarketing: Boolean!
+  submittedToMarketingInitials: String!
+  submittedToMarketingDate: DateTime!
+  additionalNotes: String!
+}
+
+input SubmissionStatusInput {
+  id: Int!
+  submittedToProgramManager: Boolean!
+  submittedToProgramManagerInitials: String!
+  submittedToProgramManagerDate: DateTime!
+  submittedToMeetingsEvents: Boolean!
+  submittedToMeetingsEventsInitials: String!
+  submittedToMeetingsEventsDate: DateTime!
+  submittedTrainingInformation: Boolean!
+  submittedTrainingInformationInitials: String!
+  submittedTrainingInformationDate: DateTime!
+  submittedToMarketing: Boolean!
+  submittedToMarketingInitials: String!
+  submittedToMarketingDate: DateTime!
+  additionalNotes: String!
+}
+
+type TrainingSession {
+  id: Int!
+  requestId: Float!
+  courseTitle: String!
+  courseDescription: String!
+  learningObjectives: String!
+  aptifyCourseId: String!
+  aptifyClassId: String!
+  trainingDates: String!
+  startTime: String!
+  endTime: String!
+  instructor: String!
+  travelNeeded: Boolean!
+  instructorBio: String!
+  ceusAwarded: Boolean!
+  numberOfCeus: Float!
+  roomLayout: String!
+  classCapacity: Float!
+  standardMemberPrice: Float!
+  standardNonMemberPrice: Float!
+  earlyBirdMemberPrice: Float!
+  earlyBirdNonMemberPrice: Float!
+  dicountsAndBundles: String!
+  additionalRequests: String!
+}
+
+input TrainingSessionInput {
+  id: Int!
+  requestId: Float!
+  courseTitle: String!
+  courseDescription: String!
+  learningObjectives: String!
+  aptifyCourseId: String!
+  aptifyClassId: String!
+  trainingDates: String!
+  startTime: String!
+  endTime: String!
+  instructor: String!
+  travelNeeded: Boolean!
+  instructorBio: String!
+  ceusAwarded: Boolean!
+  numberOfCeus: Float!
+  roomLayout: String!
+  classCapacity: Float!
+  standardMemberPrice: Float!
+  standardNonMemberPrice: Float!
+  earlyBirdMemberPrice: Float!
+  earlyBirdNonMemberPrice: Float!
+  dicountsAndBundles: String!
+  additionalRequests: String!
 }

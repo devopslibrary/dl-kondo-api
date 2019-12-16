@@ -2,18 +2,22 @@ import { Entity, PrimaryColumn, Column } from 'typeorm';
 import { Field, ObjectType, InputType, Int } from 'type-graphql';
 
 @ObjectType()
-@InputType('SettingInput')
+@InputType('FacilityLogisticsInput')
 @Entity()
-export class Setting {
+export class FacilityLogistics {
   @Field(type => Int)
   @PrimaryColumn()
   id: number;
 
   @Field()
   @Column()
-  nukeStaleBranches: boolean;
+  facilitySecured: boolean;
 
   @Field()
   @Column()
-  nukeStalePRs: boolean;
+  preferredFacilityType: string;
+
+  @Field()
+  @Column()
+  facilityRequests: string;
 }

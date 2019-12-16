@@ -1,8 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { OrgsService } from './orgs.service';
+import { OrgsService } from './request.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import * as ormconfig from '../ormconfig';
-import { OrgsModule } from './orgs.module';
+import { OrgsModule } from './requestForm.module';
 
 describe('OrgsService', () => {
   let service: OrgsService;
