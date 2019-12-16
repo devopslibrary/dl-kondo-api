@@ -9,25 +9,25 @@ The javascript `Date` as string. Type represents date and time as the ISO Date s
 scalar DateTime
 
 type FacilityLogistics {
-  id: Int!
+  id: ID!
   facilitySecured: Boolean!
   preferredFacilityType: String!
   facilityRequests: String!
 }
 
 input FacilityLogisticsInput {
-  id: Int!
+  id: ID!
   facilitySecured: Boolean!
   preferredFacilityType: String!
   facilityRequests: String!
 }
 
 type Mutation {
-  upsertForm(requestForm: RequestFormInput!): RequestForm!
+  createForm(formName: String!): RequestForm!
 }
 
 type ProgramInformation {
-  id: Int!
+  id: ID!
   eventName: String!
   dates: String!
   staffLead: String!
@@ -55,7 +55,7 @@ type ProgramInformation {
 }
 
 input ProgramInformationInput {
-  id: Int!
+  id: ID!
   eventName: String!
   dates: String!
   staffLead: String!
@@ -87,21 +87,21 @@ type Query {
 }
 
 type RegistrationLogistics {
-  id: Int!
+  id: ID!
   registrationRequired: Boolean!
   invitationsRequired: Boolean!
   badgesRequired: Boolean!
 }
 
 input RegistrationLogisticsInput {
-  id: Int!
+  id: ID!
   registrationRequired: Boolean!
   invitationsRequired: Boolean!
   badgesRequired: Boolean!
 }
 
 type RequestForm {
-  id: Int
+  id: ID!
   name: String!
   status: SubmissionStatus
   program: ProgramInformation
@@ -109,10 +109,11 @@ type RequestForm {
   facilityLogistics: FacilityLogistics
   registrationLogistics: RegistrationLogistics
   siteRequirements: SiteRequirements
+  trainingSessions: [TrainingSession!]
 }
 
 input RequestFormInput {
-  id: Int
+  id: ID!
   name: String!
   status: SubmissionStatusInput
   program: ProgramInformationInput
@@ -120,10 +121,11 @@ input RequestFormInput {
   facilityLogistics: FacilityLogisticsInput
   registrationLogistics: RegistrationLogisticsInput
   siteRequirements: SiteRequirementsInput
+  trainingSessions: [TrainingSessionInput!]
 }
 
 type SiteRequirements {
-  id: Int!
+  id: ID!
   breakfast: Boolean!
   lunch: Boolean!
   dinner: Boolean!
@@ -141,7 +143,7 @@ type SiteRequirements {
 }
 
 input SiteRequirementsInput {
-  id: Int!
+  id: ID!
   breakfast: Boolean!
   lunch: Boolean!
   dinner: Boolean!
@@ -159,7 +161,7 @@ input SiteRequirementsInput {
 }
 
 type StrategyAlignment {
-  id: Int!
+  id: ID!
   mwbEducation: Boolean!
   mwbStandards: Boolean!
   mwbGlobalAccessibility: Boolean!
@@ -171,7 +173,7 @@ type StrategyAlignment {
 }
 
 input StrategyAlignmentInput {
-  id: Int!
+  id: ID!
   mwbEducation: Boolean!
   mwbStandards: Boolean!
   mwbGlobalAccessibility: Boolean!
@@ -183,7 +185,7 @@ input StrategyAlignmentInput {
 }
 
 type SubmissionStatus {
-  id: Int!
+  id: ID!
   submittedToProgramManager: Boolean!
   submittedToProgramManagerInitials: String!
   submittedToProgramManagerDate: DateTime!
@@ -200,7 +202,7 @@ type SubmissionStatus {
 }
 
 input SubmissionStatusInput {
-  id: Int!
+  id: ID!
   submittedToProgramManager: Boolean!
   submittedToProgramManagerInitials: String!
   submittedToProgramManagerDate: DateTime!
@@ -217,8 +219,7 @@ input SubmissionStatusInput {
 }
 
 type TrainingSession {
-  id: Int!
-  requestId: Float!
+  id: ID!
   courseTitle: String!
   courseDescription: String!
   learningObjectives: String!
@@ -243,8 +244,7 @@ type TrainingSession {
 }
 
 input TrainingSessionInput {
-  id: Int!
-  requestId: Float!
+  id: ID!
   courseTitle: String!
   courseDescription: String!
   learningObjectives: String!

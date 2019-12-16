@@ -8,8 +8,8 @@ export class RequestFormResolver {
   constructor(private readonly requestFormService: RequestFormService) {}
 
   @Mutation(returns => RequestForm)
-  async upsertForm(@Args('requestForm') requestForm: RequestForm) {
-    return this.requestFormService.upsertForm(requestForm);
+  async createForm(@Args('formName') formName: string) {
+    return this.requestFormService.createForm(formName);
   }
 
   // @Mutation(returns => RequestForm)

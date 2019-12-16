@@ -35,19 +35,32 @@ export class RequestFormService {
     private readonly trainingSessionRepository: Repository<TrainingSession>,
   ) {}
 
-  async upsertForm(requestForm: RequestForm): Promise<RequestForm> {
+  async createForm(formName: string): Promise<RequestForm> {
+    let requestForm: RequestForm = {
+      name: formName,
+      status: null,
+      program: null,
+      strategy: null,
+      facilityLogistics: null,
+      registrationLogistics: null,
+      siteRequirements: null,
+      trainingSessions: null,
+    };
+    requestForm = await this.requestFormRepository.save(requestForm);
+
     // Facility Logistics
     let _facilityLogistics = await this.facilityLogisticsRepository.findOne({
       id: requestForm.id,
     });
     if (!_facilityLogistics) {
       _facilityLogistics = {
-        id: requestForm.id,
         facilitySecured: false,
         preferredFacilityType: 'Other',
         facilityRequests: '',
       };
-      await this.facilityLogisticsRepository.save(_facilityLogistics);
+      requestForm.facilityLogistics = await this.facilityLogisticsRepository.save(
+        _facilityLogistics,
+      );
     }
 
     // Program Information
@@ -56,7 +69,6 @@ export class RequestFormService {
     });
     if (!_programInformation) {
       _programInformation = {
-        id: requestForm.id,
         eventName: '',
         dates: '',
         staffLead: '',
@@ -82,7 +94,9 @@ export class RequestFormService {
         setupByTime: '',
         summary: '',
       };
-      await this.programInformationRepository.save(_programInformation);
+      requestForm.program = await this.programInformationRepository.save(
+        _programInformation,
+      );
     }
 
     // Registration Logistics
@@ -91,23 +105,23 @@ export class RequestFormService {
         id: requestForm.id,
       },
     );
-    if (_registrationLogistics) {
+    if (!_registrationLogistics) {
       _registrationLogistics = {
-        id: requestForm.id,
         registrationRequired: false,
         invitationsRequired: false,
         badgesRequired: false,
       };
-      await this.registrationLogisticsRepository.save(_registrationLogistics);
+      requestForm.registrationLogistics = await this.registrationLogisticsRepository.save(
+        _registrationLogistics,
+      );
     }
 
     // Site Requirements
     let _siteRequirements = await this.siteRequirementsRepository.findOne({
       id: requestForm.id,
     });
-    if (_siteRequirements) {
+    if (!_siteRequirements) {
       _siteRequirements = {
-        id: requestForm.id,
         breakfast: false,
         lunch: false,
         dinner: false,
@@ -123,7 +137,9 @@ export class RequestFormService {
         additionalRequests: '',
         updatedAt: new Date(),
       };
-      await this.siteRequirementsRepository.save(_siteRequirements);
+      requestForm.siteRequirements = await this.siteRequirementsRepository.save(
+        _siteRequirements,
+      );
     }
 
     // Strategy Alignment
@@ -132,7 +148,6 @@ export class RequestFormService {
     });
     if (!_strategyAlignment) {
       _strategyAlignment = {
-        id: requestForm.id,
         mwbEducation: false,
         mwbEngagement: false,
         mwbGlobalAccessibility: false,
@@ -142,9 +157,10 @@ export class RequestFormService {
         objectives: '',
         goalPeopleReached: 0,
       };
-      this.strategyAlignmentRepository.save(_strategyAlignment);
+      requestForm.strategy = await this.strategyAlignmentRepository.save(
+        _strategyAlignment,
+      );
     }
-    await this.requestFormRepository.save(requestForm);
 
     // Submission Status
     let _submissionStatus = await this.submissionStatusRepository.findOne({
@@ -152,7 +168,6 @@ export class RequestFormService {
     });
     if (!_submissionStatus) {
       _submissionStatus = {
-        id: requestForm.id,
         submittedToMarketing: false,
         submittedToMarketingDate: new Date(),
         submittedToMarketingInitials: '',
@@ -167,7 +182,9 @@ export class RequestFormService {
         submittedTrainingInformationInitials: '',
         additionalNotes: '',
       };
-      await this.submissionStatusRepository.save(_submissionStatus);
+      requestForm.status = await this.submissionStatusRepository.save(
+        _submissionStatus,
+      );
     }
 
     // Training Session
@@ -176,8 +193,6 @@ export class RequestFormService {
     });
     if (!_trainingSession) {
       _trainingSession = {
-        id: requestForm.id,
-        requestId: 0,
         courseTitle: '',
         courseDescription: '',
         learningObjectives: '',
@@ -199,8 +214,11 @@ export class RequestFormService {
         earlyBirdNonMemberPrice: 0,
         dicountsAndBundles: '',
         additionalRequests: '',
+        requestForm: requestForm,
       };
-      await this.trainingSessionRepository.save(_trainingSession);
+      requestForm.trainingSessions = [
+        await this.trainingSessionRepository.save(_trainingSession),
+      ];
     }
     return this.requestFormRepository.save(requestForm);
   }

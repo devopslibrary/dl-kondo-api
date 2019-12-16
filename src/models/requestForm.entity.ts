@@ -1,12 +1,5 @@
-import {
-  Entity,
-  Column,
-  OneToMany,
-  OneToOne,
-  JoinColumn,
-  ManyToOne,
-} from 'typeorm';
-import { Field, ObjectType, InputType, Int } from 'type-graphql';
+import { Entity, Column, OneToMany, OneToOne, JoinColumn } from 'typeorm';
+import { Field, ObjectType, InputType, ID } from 'type-graphql';
 import { PrimaryGeneratedColumn } from 'typeorm';
 import { SubmissionStatus } from './submissionStatus.entity';
 import { ProgramInformation } from './programInformation.entity';
@@ -14,14 +7,15 @@ import { StrategyAlignment } from './strategyAlignment.entity';
 import { FacilityLogistics } from './facilityLogistics.entity';
 import { RegistrationLogistics } from './registrationLogistics.entity';
 import { SiteRequirements } from './siteRequirements.entity';
+import { TrainingSession } from './trainingSession.entity';
 
 @ObjectType()
 @InputType('RequestFormInput')
 @Entity()
 export class RequestForm {
-  @Field(type => Int, { nullable: true })
+  @Field(type => ID)
   @PrimaryGeneratedColumn()
-  id: number;
+  id?: number;
 
   @Field()
   @Column({ length: 50 })
@@ -56,4 +50,12 @@ export class RequestForm {
   @OneToOne(type => SiteRequirements, { cascade: ['insert', 'update'] })
   @JoinColumn()
   siteRequirements: SiteRequirements;
+
+  @Field(type => TrainingSession, { nullable: true })
+  @OneToMany(
+    type => TrainingSession,
+    trainingSession => trainingSession.requestForm,
+    { cascade: ['insert', 'update'] },
+  )
+  trainingSessions: TrainingSession[];
 }

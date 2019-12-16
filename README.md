@@ -1,6 +1,6 @@
 ## Description
 
-[Kondo](https://kondo.io) backend API repository, built with NestJS
+Cedia-API for Master Request Form
 
 ## Installation
 
@@ -14,15 +14,13 @@ yarn run typeorm:migrate initial-structures
 
 ## Example GraphQL queries
 
-Create Org Mutation
+Create Form
 
 ```graphql
-mutation createOrg($org: OrgInput!) {
-  upsertOrg(org: $org) {
+mutation createForm($formName: String!) {
+  createForm(formName: $formName) {
     id
     name
-    installationId
-    lastSynced
   }
 }
 ```
@@ -31,12 +29,7 @@ Query Variables
 
 ```json
 {
-  "org": {
-    "id": 111,
-    "name": "TestKen",
-    "installationId": 444,
-    "lastSynced": 1575645951
-  }
+  "formName": "Test"
 }
 ```
 

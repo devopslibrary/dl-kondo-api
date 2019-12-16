@@ -1,17 +1,20 @@
-import { Entity, PrimaryColumn, Column } from 'typeorm';
-import { Field, ObjectType, InputType, Int } from 'type-graphql';
+import { Entity, Column, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Field, ObjectType, InputType, ID } from 'type-graphql';
+import { RequestForm } from './requestForm.entity';
 
 @ObjectType()
 @InputType('TrainingSessionInput')
 @Entity()
 export class TrainingSession {
-  @Field(type => Int)
-  @PrimaryColumn()
-  id: number;
+  @Field(type => ID)
+  @PrimaryGeneratedColumn()
+  id?: number;
 
-  @Field()
-  @Column()
-  requestId: number;
+  @ManyToOne(
+    type => RequestForm,
+    requestForm => requestForm.trainingSessions,
+  )
+  requestForm: RequestForm;
 
   @Field()
   @Column()
