@@ -33,7 +33,7 @@
     "@types/dotenv": "^8.2.0",
     "@types/express-session": "^1.15.16",
     "@types/passport-jwt": "^3.0.3",
-    "apollo-server-express": "^2.9.13",
+    "apollo-server-express": "^2.14.2",
     "dotenv": "^8.2.0",
     "graphql": "^14.5.8",
     "graphql-tools": "^4.0.6",
